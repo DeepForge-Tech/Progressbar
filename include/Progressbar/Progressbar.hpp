@@ -6,8 +6,6 @@
 
 namespace Bar
 {
-    int Process;
-
     class ProgressBar_v1
     {
     public:
@@ -21,11 +19,12 @@ namespace Bar
         std::string EmptyStr;
         int LastSizeStr;
         std::string OutputStr;
+        int Process;
 
         void Update(double DownloadedSize = 0.0, double TotalSize = 0.0);
         void ResetAll();
 
-    private:
+    protected:
         std::string round(double value);
 
         std::string AutoConvertSize(float Size);
@@ -40,11 +39,12 @@ namespace Bar
     class ProgressBar_v2
     {
     public:
+        int Process;
         std::string ProgressSymbols[4] = {"/", "-", "\\", "|"};
         int n = 0;
         void Update();
 
-    private:
+    protected:
     };
 }
 #endif
