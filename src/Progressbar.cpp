@@ -2,16 +2,17 @@
 
 void Bar::ProgressBar_v1::Update(double DownloadedSize, double TotalSize)
 {
-    if (Process < 100)
-        Process += 1;
+    Percentage = DownloadedSize / TotalSize * 100;
+    // if (Percentage < 100)
+    //     Percentage += 1;
     Output = startSymbol;
     for (int i = 0; i < n_done; i++)
     {
         Output += doneSymbol;
     }
-    if (Process <= 100)
+    if (Percentage <= 100)
     {
-        if (Process % 4 == 0)
+        if (Percentage % 4 == 0)
         {
             Output += doneSymbol;
             n_done += 1;
@@ -31,10 +32,10 @@ void Bar::ProgressBar_v1::Update(double DownloadedSize, double TotalSize)
         EmptyStr += todoSymbol;
     }
     std::cout << "\r" << EmptyStr << std::flush;
-    OutputStr = Output + " " + std::to_string(Process) + "%  ";
+    OutputStr = Output + " " + std::to_string(Percentage) + "%  ";
     if (DownloadedSize != 0.0 && TotalSize != 0.0)
     {
-        if (Process == 100)
+        if (Percentage == 100)
         {
             OutputStr = OutputStr + AutoConvertSize(TotalSize) + " / " + AutoConvertSize(TotalSize);
         }
@@ -50,7 +51,7 @@ void Bar::ProgressBar_v1::Update(double DownloadedSize, double TotalSize)
 void Bar::ProgressBar_v1::ResetAll()
 {
     std::cout << "" << std::endl;
-    Process = 0;
+    Percentage = 0;
     LastSizeStr = 0;
     OutputStr = "";
     EmptyStr = "";

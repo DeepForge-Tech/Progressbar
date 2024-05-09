@@ -19,7 +19,7 @@ namespace Bar
         std::string EmptyStr;
         int LastSizeStr;
         std::string OutputStr;
-        int Process;
+        int Percentage;
 
         void Update(double DownloadedSize = 0.0, double TotalSize = 0.0);
         void ResetAll();
@@ -39,7 +39,7 @@ namespace Bar
     class ProgressBar_v2
     {
     public:
-        int Process;
+        int Percentage;
         std::string ProgressSymbols[4] = {"/", "-", "\\", "|"};
         int n = 0;
         void Update();
