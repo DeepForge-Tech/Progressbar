@@ -16,13 +16,13 @@ namespace Bar
         std::string output;
         int maxSymbols = 25;
         int n_done = 0;
-        std::string EmptyStr;
+        std::string emptyStr;
         int lastSizeStr;
         std::string outputStr;
-        int Progress;
+        int progress;
 
-        void Update(double DownloadedSize = 0.0, double TotalSize = 0.0);
-        void ResetAll();
+        void update(double DownloadedSize = 0.0, double TotalSize = 0.0);
+        void resetAll();
         void setMaxSymbols(int max);
         void setProgress(int Progress);
         void setDoneSymbol(std::string symbol);
@@ -45,10 +45,10 @@ namespace Bar
     class ProgressBar_v2
     {
     public:
-        int Progress;
-        std::string ProgressSymbols[4] = {"/", "-", "\\", "|"};
+        int progress;
+        std::string progressSymbols[4] = {"/", "-", "\\", "|"};
         int n = 0;
-        void Update();
+        void update();
 
     protected:
     };

@@ -1,17 +1,17 @@
 #include <Progressbar/Progressbar.hpp>
 
-void Bar::ProgressBar_v1::Update(double DownloadedSize, double TotalSize)
+void Bar::ProgressBar_v1::update(double DownloadedSize, double TotalSize)
 {
-    if (Progress < 100)
-        Progress += 1;
+    if (progress < 100)
+        progress += 1;
     output = startSymbol;
     for (int i = 0; i < n_done; i++)
     {
         output += doneSymbol;
     }
-    if (Progress <= 100)
+    if (progress <= 100)
     {
-        if (Progress % 4 == 0)
+        if (progress % 4 == 0)
         {
             output += doneSymbol;
             n_done += 1;
@@ -25,16 +25,16 @@ void Bar::ProgressBar_v1::Update(double DownloadedSize, double TotalSize)
         }
     }
     output += endSymbol;
-    EmptyStr = "";
+    emptyStr = "";
     for (int i = 0; i < lastSizeStr; i++)
     {
-        EmptyStr += todoSymbol;
+        emptyStr += todoSymbol;
     }
-    std::cout << "\r" << EmptyStr << std::flush;
-    outputStr = output + " " + std::to_string(Progress) + "%  ";
+    std::cout << "\r" << emptyStr << std::flush;
+    outputStr = output + " " + std::to_string(progress) + "%  ";
     if (DownloadedSize != 0.0 && TotalSize != 0.0)
     {
-        if (Progress == 100)
+        if (progress == 100)
         {
             outputStr = outputStr + autoConvertSize(TotalSize) + " / " + autoConvertSize(TotalSize);
         }
@@ -47,13 +47,13 @@ void Bar::ProgressBar_v1::Update(double DownloadedSize, double TotalSize)
     lastSizeStr = outputStr.size();
 }
 
-void Bar::ProgressBar_v1::ResetAll()
+void Bar::ProgressBar_v1::resetAll()
 {
     std::cout << "" << std::endl;
-    Progress = 0;
+    progress = 0;
     lastSizeStr = 0;
     outputStr = "";
-    EmptyStr = "";
+    emptyStr = "";
     output = "";
     n_done = 0;
 }
@@ -140,10 +140,10 @@ double Bar::ProgressBar_v1::convert_to_GB(double Value)
     return NewValue;
 }
 
-void Bar::ProgressBar_v2::Update()
+void Bar::ProgressBar_v2::update()
 {
-    std::cout << "\r" << ProgressSymbols[n] << std::flush;
-    if (n == (end(ProgressSymbols) - begin(ProgressSymbols) - 1))
+    std::cout << "\r" << progressSymbols[n] << std::flush;
+    if (n == (end(progressSymbols) - begin(progressSymbols) - 1))
         n = 0;
     else
         n++;
