@@ -2,18 +2,18 @@
 
 void Bar::ProgressBar_v1::Update(double DownloadedSize, double TotalSize)
 {
-    if (Process < 100)
-        Process += 1;
-    Output = startSymbol;
+    if (Progress < 100)
+        Progress += 1;
+    output = startSymbol;
     for (int i = 0; i < n_done; i++)
     {
-        Output += doneSymbol;
+        output += doneSymbol;
     }
-    if (Process <= 100)
+    if (Progress <= 100)
     {
-        if (Process % 4 == 0)
+        if (Progress % 4 == 0)
         {
-            Output += doneSymbol;
+            output += doneSymbol;
             n_done += 1;
         }
     }
@@ -21,41 +21,66 @@ void Bar::ProgressBar_v1::Update(double DownloadedSize, double TotalSize)
     {
         for (int i = 0; i < (maxSymbols - n_done); i++)
         {
-            Output += todoSymbol;
+            output += todoSymbol;
         }
     }
-    Output += endSymbol;
+    output += endSymbol;
     EmptyStr = "";
-    for (int i = 0; i < LastSizeStr; i++)
+    for (int i = 0; i < lastSizeStr; i++)
     {
         EmptyStr += todoSymbol;
     }
     std::cout << "\r" << EmptyStr << std::flush;
-    OutputStr = Output + " " + std::to_string(Process) + "%  ";
+    outputStr = output + " " + std::to_string(Progress) + "%  ";
     if (DownloadedSize != 0.0 && TotalSize != 0.0)
     {
-        if (Process == 100)
+        if (Progress == 100)
         {
-            OutputStr = OutputStr + AutoConvertSize(TotalSize) + " / " + AutoConvertSize(TotalSize);
+            outputStr = outputStr + autoConvertSize(TotalSize) + " / " + autoConvertSize(TotalSize);
         }
         else
         {
-            OutputStr = OutputStr + AutoConvertSize(DownloadedSize) + " / " + AutoConvertSize(TotalSize);
+            outputStr = outputStr + autoConvertSize(DownloadedSize) + " / " + autoConvertSize(TotalSize);
         }
     }
-    std::cout << "\r" << OutputStr << std::flush;
-    LastSizeStr = OutputStr.size();
+    std::cout << "\r" << outputStr << std::flush;
+    lastSizeStr = outputStr.size();
 }
 
 void Bar::ProgressBar_v1::ResetAll()
 {
     std::cout << "" << std::endl;
-    Process = 0;
-    LastSizeStr = 0;
-    OutputStr = "";
+    Progress = 0;
+    lastSizeStr = 0;
+    outputStr = "";
     EmptyStr = "";
-    Output = "";
+    output = "";
     n_done = 0;
+}
+
+void Bar::ProgressBar_v1::setMaxSymbols(int max)
+{
+    maxSymbols = max;
+}
+void Bar::ProgressBar_v1::setProgress(int Progress)
+{
+    Progress = Progress;
+}
+void Bar::ProgressBar_v1::setDoneSymbol(std::string symbol)
+{
+    doneSymbol = symbol;
+}
+void Bar::ProgressBar_v1::setTodoSymbol(std::string symbol)
+{
+    todoSymbol = symbol;
+}
+void Bar::ProgressBar_v1::setStartSymbol(std::string symbol)
+{
+    startSymbol = symbol;
+}
+void Bar::ProgressBar_v1::setEndSymbol(std::string symbol)
+{
+    endSymbol = symbol;
 }
 
 std::string Bar::ProgressBar_v1::round(double value)
@@ -78,7 +103,7 @@ std::string Bar::ProgressBar_v1::round(double value)
     return str;
 }
 
-std::string Bar::ProgressBar_v1::AutoConvertSize(float Size)
+std::string Bar::ProgressBar_v1::autoConvertSize(float Size)
 {
     std::string ConvertedSize;
     Size = convert_to_KB(Size);
