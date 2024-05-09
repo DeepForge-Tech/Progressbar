@@ -2,7 +2,7 @@
 
 void Bar::ProgressBar_v1::Update(double DownloadedSize, double TotalSize)
 {
-    Percentage = DownloadedSize / TotalSize * 100;
+    Percentage = static_cast<float>(DownloadedSize) / static_cast<float>(TotalSize) * 100;
     // if (Percentage < 100)
     //     Percentage += 1;
     Output = startSymbol;
